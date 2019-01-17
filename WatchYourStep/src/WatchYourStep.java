@@ -1,10 +1,12 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 public class WatchYourStep extends JFrame {
 
@@ -19,10 +21,10 @@ public class WatchYourStep extends JFrame {
 	}
 	
 	private void initGUI() { 
-		//TITLE PANEL 
+		/*//TITLE PANEL 
 		JPanel titlePanel = new JPanel();
 		titlePanel.setBackground(Color.BLACK);
-		add(titlePanel, BorderLayout.CENTER);
+		add(titlePanel, BorderLayout.CENTER); */
 		
 		//TITLE LABEL
 		JLabel titleLabel = new JLabel(" Watch Your Step ");
@@ -33,11 +35,22 @@ public class WatchYourStep extends JFrame {
 		titleLabel.setOpaque(true);
 		//add label to window
 		add(titleLabel, BorderLayout.PAGE_START);
-		titleLabel.setHorizontalAlignment(JLabel.CENTER);
+		titleLabel.setHorizontalAlignment(JLabel.CENTER); 
+		
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		try {
+            String className = UIManager.getCrossPlatformLookAndFeelClassName();
+            UIManager.setLookAndFeel(className);
+        } catch ( Exception e) {}
+        
+        EventQueue.invokeLater(new Runnable (){
+            @Override
+            public void run() {
+                new WatchYourStep(); 
+            }   
+        });
 
 	}
 
