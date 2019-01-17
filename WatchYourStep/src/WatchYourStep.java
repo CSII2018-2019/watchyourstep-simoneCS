@@ -3,7 +3,13 @@ import javax.swing.JFrame;
 public class WatchYourStep extends JFrame {
 
 	public WatchYourStep() {
-		// TODO Auto-generated constructor stub
+		initGUI(); 
+		
+		setTitle(" Watch Your Step "); 
+		setResizable(false); 
+		pack(); 
+		setLocationRelativeTo(null);  
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
 	public static void main(String[] args) {
