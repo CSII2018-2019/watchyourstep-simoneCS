@@ -1,5 +1,6 @@
+import javax.swing.JFrame;
 
-public class WatchYourStep {
+public class WatchYourStep extends JFrame {
 
 	public WatchYourStep() {
 		// TODO Auto-generated constructor stub
