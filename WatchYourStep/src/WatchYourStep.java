@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,6 +19,7 @@ public class WatchYourStep extends JFrame {
 		pack(); 
 		setLocationRelativeTo(null);  
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setVisible(true); 
 	}
 	
 	private void initGUI() { 
@@ -37,6 +39,30 @@ public class WatchYourStep extends JFrame {
 		add(titleLabel, BorderLayout.PAGE_START);
 		titleLabel.setHorizontalAlignment(JLabel.CENTER); 
 		
+	}
+	
+	public class TerrainButton extends JButton { 
+		private static final int size = 50;
+		int row = 0; 
+		int col = 0; 
+		int nextToHoles = 0; 
+		private boolean hole = false;
+		private boolean revealed = false;
+	}
+	
+	public WatchYourStep(int row, int col) {
+		sizeWide(row);
+		sizeHigh(col);
+		setPreferredSize(size); 
+		
+	}
+	
+	public int getRow() { 
+		return row; 
+	}
+	
+	public int getCol() { 
+		return col; 
 	}
 
 	public static void main(String[] args) {
