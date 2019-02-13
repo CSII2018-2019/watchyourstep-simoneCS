@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,13 +19,15 @@ public class WatchYourStep extends JFrame {
 	
 	public WatchYourStep() {
 		initGUI(); 
+		setHoles(); 
 		
 		setTitle(" Watch Your Step "); 
 		setResizable(false); 
 		pack(); 
 		setLocationRelativeTo(null);  
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setVisible(true); 
+		setVisible(true);
+		
 	}
 	
 	private void initGUI() { 
@@ -59,6 +62,21 @@ public class WatchYourStep extends JFrame {
 		int nextToHoles = 0; 
 		private boolean hole = false;
 		private boolean revealed = false;
+	}
+	
+	private void setHole() {
+		int pickRow; 
+		int pickCol; 
+		Random rand = new Random (); 
+		for (int i =0; i < NUMBEROFHOLES; i++) { 
+			do { 
+				pickRow = rand.nextInt(GRIDSIZE); 
+				pickCol = rand.nextInt(GRIDSIZE); 
+			}while (terrain[pickRow][pickCol].hasHole()); 
+			terrain[pickRow][pickCol].setHole(true); 
+			terrain[pickRow][pickCol].reveal(true);
+			addToNeighborsHoleCount(pickRow, pickCol); 
+		}
 	}
 	
 	public static void main(String[] args) {
