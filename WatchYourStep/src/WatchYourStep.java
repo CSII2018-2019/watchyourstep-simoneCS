@@ -2,6 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -10,7 +11,11 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 public class WatchYourStep extends JFrame {
-
+	private static final int GRIDSIZE = 10; 
+	private static int NUMBEROFHOLES = 10; 
+	private TerrainButton [] [] terrain = new TerrainButton[GRIDSIZE][GRIDSIZE];
+	private int totalRevealed = 0; 
+	
 	public WatchYourStep() {
 		initGUI(); 
 		
@@ -23,10 +28,16 @@ public class WatchYourStep extends JFrame {
 	}
 	
 	private void initGUI() { 
-		/*//TITLE PANEL 
-		JPanel titlePanel = new JPanel();
-		titlePanel.setBackground(Color.BLACK);
-		add(titlePanel, BorderLayout.CENTER); */
+		//CENTER PANEL 
+		JPanel centerPanel = new JPanel();
+		centerPanel.setLayout(new GridLayout(GRIDSIZE, GRIDSIZE));
+		add(centerPanel, BorderLayout.CENTER); 
+		for (int r = 0; r< GRIDSIZE; r++) {
+			for (int c = 0; c< GRIDSIZE; c++) {
+				terrain[r][c] = new TerrainButton(r,c); 
+				centerPanel.add(terrain[r][c]); 
+			}
+		}
 		
 		//TITLE LABEL
 		JLabel titleLabel = new JLabel(" Watch Your Step ");
@@ -50,21 +61,6 @@ public class WatchYourStep extends JFrame {
 		private boolean revealed = false;
 	}
 	
-	public WatchYourStep(int row, int col) {
-		sizeWide(row);
-		sizeHigh(col);
-		setPreferredSize(size); 
-		
-	}
-	
-	public int getRow() { 
-		return row; 
-	}
-	
-	public int getCol() { 
-		return col; 
-	}
-
 	public static void main(String[] args) {
 		try {
             String className = UIManager.getCrossPlatformLookAndFeelClassName();
