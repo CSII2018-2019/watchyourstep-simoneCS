@@ -3,6 +3,8 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Random;
 
 import javax.swing.JButton;
@@ -39,7 +41,15 @@ public class WatchYourStep extends JFrame {
 			for (int c = 0; c< GRIDSIZE; c++) {
 				terrain[r][c] = new TerrainButton(r,c); 
 				centerPanel.add(terrain[r][c]); 
-			}
+				terrain[r][c].addActionListener(new ActionListener();
+				public void actionPerformed(ActionEvent e) { 
+					TerrainButton button = (TerrainButton) e.getSource(); 
+					int row = button.getRow(); 
+					int col = button.getCol(); 
+					clickedTerrain(row, col); 
+				}
+			});
+				centerPanel.add(terrain[r][c]);
 		}
 		
 		//TITLE LABEL
@@ -74,9 +84,60 @@ public class WatchYourStep extends JFrame {
 				pickCol = rand.nextInt(GRIDSIZE); 
 			}while (terrain[pickRow][pickCol].hasHole()); 
 			terrain[pickRow][pickCol].setHole(true); 
+			addToNeighborsHoleCount(pickRow, pickCol);
 			terrain[pickRow][pickCol].reveal(true);
-			addToNeighborsHoleCount(pickRow, pickCol); 
 		}
+	}
+	
+	private void addToNeighborsHoleCount(int row, int col) { 
+		addToHoleCount(row--, col--); 
+		addToHoleCount(row--, col); 
+		addToHoleCount(row--, col++); 
+		addToHoleCount(row++, col--);
+		addToHoleCount(row++, col);
+		addToHoleCount(row++, col++);
+		addToHoleCount(row, col--); 
+		addToHoleCount(row, col++);
+		addToHoleCount(row, col);
+	}
+	
+	private void addToHoleCount(int row, int col) {
+		if(row > -1 && row < GRIDSIZE && col > -1 && col < GRIDSIZE) {
+			terrain[row][col].increaseHoleCount(); 
+			terrain[row][col].reveal(true); 
+		}
+	}
+	
+	private void clickedTerrain(int row, int col) { 
+		/*if(terrain[row][col].hasHole()) { 
+			String message = "Game Over"; 
+			promptForNewGame(message); 
+		}else { 
+			check(row, col); 
+			checkNeighbors (row, col); 
+		} */
+	}
+	
+	private void check(int row, int col) { 
+		if (row > -1 && row < GRIDSIZE && col > -1 && col< GRIDSIZE && !terrain[row][col].hasHole() 
+			&& !terrain[row][col].isRevealed()) { 
+			terrain[row][col].reveal(true); 
+			totalRevealed++; 
+			if(!terrain[row][col].isNextToHoles()) { 
+				checkNeighbors(row,col); 
+			}
+		}
+	}
+	
+	private void checkNeighbors(int row, int col) { 
+		check(row--, col--); 
+		check(row--, col); 
+		check(row--, col++); 
+		check(row++, col--);
+		check(row++, col);
+		check(row++, col++);
+		check(row, col--); 
+		check(row, col++);
 	}
 	
 	public static void main(String[] args) {
